@@ -11,23 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402044117) do
-
-  create_table "links", :force => true do |t|
-    t.string   "original"
-    t.string   "short"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130402174929) do
 
   create_table "long_urls", :force => true do |t|
     t.string "long"
   end
 
   create_table "short_urls", :force => true do |t|
-    t.string  "short"
-    t.integer "user_id"
-    t.integer "long_url_id"
+    t.string   "short"
+    t.integer  "user_id"
+    t.integer  "long_url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
@@ -36,10 +31,8 @@ ActiveRecord::Schema.define(:version => 20130402044117) do
   end
 
   create_table "visits", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "short_url_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "short_url_id"
   end
 
 end

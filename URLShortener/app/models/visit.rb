@@ -14,7 +14,6 @@ class Visit < ActiveRecord::Base
 	end
 
 
-
 	def self.total_visits_last_10min(short_u)
 		self.where(:short_url_id => ShortUrl.get_short_id( short_u ),
 		           :created_at => (Time.now - 600)..Time.now).count

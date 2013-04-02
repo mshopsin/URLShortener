@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 	has_many :short_urls, :through => :visits
 
 	has_many :short_urls
+  validates :email, :uniqueness=>true, :presence => true
+  validates :username, :uniqueness=>true, :presence => true
 
 	def take_url(url)
 		 ShortUrl.build_short(url,self)

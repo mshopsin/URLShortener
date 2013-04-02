@@ -11,12 +11,18 @@ class ShortUrl < ActiveRecord::Base
 	belongs_to :long_url
 	belongs_to :user
 
+  validate :cant_submit_more_than_five
+
+
 	def self.build_short(long_url,user)
-		Short_url.create!(
+
+		ShortUrl.create!(
 		:short => get_secure,
 		:long_url_id => get_long_url(long_url).id,
 		:user_id => user.id
 		)
+
+
 
 		self
 	end
@@ -31,7 +37,7 @@ class ShortUrl < ActiveRecord::Base
 	end
 
 	def self.get_long_url(url)
-		Long_url.where(:long => url)[0] || Long_url.new_url(url)
+		LongUrl.where(:long => url)[0] || LongUrl.new_url(url)
 	end
 
 	def self.get_short_id(url)
@@ -41,6 +47,14 @@ class ShortUrl < ActiveRecord::Base
 	def self.get_short_ids(url)
 		joins(:long_url).map { |ele| ele.short }
 	end
+
+  def cant_submit_more_than_five
+
+    if ShortUrl.where(:user_id=>user_id, :created_at => ((Time.now-600)..Time.now)).count > 5
+      errors[:more_than_five] << "You can't submit more than five links within the last minute."
+    end
+
+  end
 
 
 end
