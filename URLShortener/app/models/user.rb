@@ -25,5 +25,12 @@ class User < ActiveRecord::Base
 		self.short_urls.where(:short => url)[0].id
 	end
 
+	def get_urls
+		self.short_urls.map do |short_link|
+			 ele = LongUrl.where(:id => short_link.id)
+		end.flatten.map do |link|
+			link.long
+		end
+	end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402003958) do
+ActiveRecord::Schema.define(:version => 20130402044117) do
 
   create_table "links", :force => true do |t|
     t.string   "original"
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(:version => 20130402003958) do
   end
 
   create_table "visits", :force => true do |t|
-    t.integer "user_id"
-    t.integer "short_url_id"
+    t.integer  "user_id"
+    t.integer  "short_url_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

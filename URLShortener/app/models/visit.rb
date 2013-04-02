@@ -8,14 +8,16 @@ class Visit < ActiveRecord::Base
 	end
 
 	def self.unique_visits(short_u)
-		self.count(:short_url_id => short_u.id, :distinct => true)
+		#self.count(:short_url_id => ShortUrl.get_short_id( short_u ),
+		#           :distinct => true)
+		ShortUrl.get_short_ids(short_u).count
 	end
 
 
 
 	def self.total_visits_last_10min(short_u)
-		self.count(:short_url_id => short_u.id,
-		           :created_at => (Time.now - 10.minutes))
+		self.where(:short_url_id => ShortUrl.get_short_id( short_u ),
+		           :created_at => (Time.now - 600)..Time.now).count
 	end
 
 	def self.visit_url(user, url)

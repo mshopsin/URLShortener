@@ -38,5 +38,9 @@ class ShortUrl < ActiveRecord::Base
 		self.where(:short => url)[0]
 	end
 
+	def self.get_short_ids(url)
+		joins(:long_url).map { |ele| ele.short }
+	end
+
 
 end
