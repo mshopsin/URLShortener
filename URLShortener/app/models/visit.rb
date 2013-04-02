@@ -3,17 +3,17 @@ class Visit < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :short_url
 
-	def total_visits(short_u)
-		self.count(:short_url_id => short_u.id)
+	def self.total_visits(short_u)
+		self.where(:short_url_id =>  ShortUrl.get_short_id( short_u ) ).count
 	end
 
-	def unique_visits(short_u)
+	def self.unique_visits(short_u)
 		self.count(:short_url_id => short_u.id, :distinct => true)
 	end
 
 
 
-	def total_visits_last_10min(short_u)
+	def self.total_visits_last_10min(short_u)
 		self.count(:short_url_id => short_u.id,
 		           :created_at => (Time.now - 10.minutes))
 	end

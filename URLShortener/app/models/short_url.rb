@@ -34,5 +34,9 @@ class ShortUrl < ActiveRecord::Base
 		Long_url.where(:long => url)[0] || Long_url.new_url(url)
 	end
 
+	def self.get_short_id(url)
+		self.where(:short => url)[0]
+	end
+
 
 end
